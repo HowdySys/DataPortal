@@ -18,6 +18,7 @@ import java.net.*;
 
 import secret.IEX_API;
 import util.Util;
+import util.UtilDB;
 
 /**
  * Servlet implementation class DataIEX
@@ -58,15 +59,14 @@ public class DataIEX_Symbols extends HttpServlet implements IEX_API {
 				BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
 
 				String output;
-				while ((output = br.readLine()) != null) {
-					System.out.println(output);
+				while ((output = br.readLine()) != null)
 					jsonResp.add(output); 
-				}
-
 				conn.disconnect();
 			}
 			
-			
+			for (String s : jsonResp) {
+				UtilDB.insertSymbol(s);
+			}
 			
 		} catch (MalformedURLException e) {
 
@@ -75,12 +75,13 @@ public class DataIEX_Symbols extends HttpServlet implements IEX_API {
 		} catch (IOException e) {
 
 			e.printStackTrace();
-
 		}
 
 		catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
 
 	}
 
