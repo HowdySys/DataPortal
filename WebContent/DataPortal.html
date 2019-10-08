@@ -1,0 +1,62 @@
+<html>
+<head>
+<style>
+header {
+    background-color:black;
+    color:white;
+    text-align:center;
+    padding:5px;	 
+}
+nav {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:300px;
+    width:100px;
+    float:left;
+    padding:5px;	      
+}
+section {
+    width:350px;
+    float:left;
+    padding:10px;	 	 
+}
+footer {
+    background-color:black;
+    color:white;
+    clear:both;
+    text-align:center;
+    padding:5px;	 	 
+}
+h1 {
+	font:
+}
+</style>
+</head>
+
+<body>
+<header>
+<h1>Market Data Portal</h1>
+</header>
+
+
+<section>
+	<h1>User Input</h1>
+	
+	<form action="DataIEX" method="POST">
+	
+		Sector: <input type="text" name="pSector"> <br/>
+		Symbols: <input type="text" name="pSymbols"> <br/>
+		Start Date: <input type="date" name="startDate"> <br/>
+		Stop Date: <input type="date" name="stopDate"> <br/>
+		
+		<input type="submit" value="Submit" />
+	</form>
+
+<a href="https://iexcloud.io">Data provided by IEX Cloud</a>
+</section>
+
+<footer>
+Copyright
+</footer>
+</body>
+</html>

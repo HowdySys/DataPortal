@@ -1,0 +1,6 @@
+/build/
+/src/secret
+/src/hibernate.cfg
+/WebContent/WEB-INF
+/WebContent/META-INF
+
