@@ -45,9 +45,12 @@ public class ExportSymbols extends HttpServlet {
 		List<String> params = Util.parse(request.getParameter("pSymbols"));
 		List<StockQuote> result = UtilDB.selectSymbol((ArrayList<String>) params);
 		PrintWriter write = response.getWriter(); 
+		write.print("<h1>CSV Output</h1><br />");
+		write.print("Symbol,Open,Close,LatestPrice,Volume <br />");
 		for (StockQuote stockQuote : result) {
-			write.println(Util.generateCSV(stockQuote.getAttributes()));
+			write.print(Util.generateCSV(stockQuote.getAttributes()));
 		}
+		write.print("<br />15 Minutes of Delay.");
 	}
 
 	/**

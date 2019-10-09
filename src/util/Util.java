@@ -20,60 +20,55 @@ import datamodel.StockQuote;
 import secret.IEX_API;
 
 public class Util implements IEX_API {
-	
-	public static List<String> parse(String in)
-	{
-		if (in == null) return null;
+
+	public static List<String> parse(String in) {
+		if (in == null)
+			return null;
 		Scanner read = new Scanner(in);
-		List<String> sym = new ArrayList<>(); 
+		List<String> sym = new ArrayList<>();
 		read.useDelimiter(",");
 		try {
 			while (read.hasNext())
 				sym.add(read.next().toUpperCase());
 
 			read.close();
-			
+
 			return sym;
-			
+
 		} catch (Exception e) {
 			read.close();
 			e.printStackTrace();
-			return null; 
+			return null;
 		}
 	}
-	
-	public static ArrayList<String> generateSymbolStockQuoteURL(HttpServletRequest request)
-	{
-		ArrayList<String> symbolURL = new ArrayList<String>(); 
+
+	public static ArrayList<String> generateSymbolStockQuoteURL(HttpServletRequest request) {
+		ArrayList<String> symbolURL = new ArrayList<String>();
 		String baseURL = "https://sandbox.iexapis.com/stable/stock/";
-		
+
 		Scanner read = new Scanner(request.getParameter("pSymbols"));
-		read.useDelimiter(","); 
-		
+		read.useDelimiter(",");
+
 		while (read.hasNext())
-			symbolURL.add(baseURL + read.next() /* Symbol */ + "/quote?token=" + IEX_API.getPK()); 
-		
+			symbolURL.add(baseURL + read.next() /* Symbol */ + "/quote?token=" + IEX_API.getPK());
+
 		read.close();
-		return symbolURL; 
+		return symbolURL;
 	}
-	
+
 	public static String generateCSV(String jsonIn) {
-		String result = ""; 
+		String result = "";
 		try {
-		JSONParser parser = new JSONParser(); 
-		JSONObject obj = (JSONObject)parser.parse(jsonIn); 
-		Set attributes = obj.entrySet();
-		Iterator<String> itr = attributes.iterator(); 
-		while (itr.hasNext())
-		{
-			if (!result.equals(""))
-				result += ","; 
-			result += itr.next().toString();
-		}
-		
+			JSONParser parser = new JSONParser();
+			JSONObject obj = (JSONObject) parser.parse(jsonIn);
+			result += obj.get("symbol").toString() + ","; 
+			result += obj.get("open").toString() + ","; 
+			result += obj.get("close").toString() + ","; 
+			result += obj.get("latestPrice").toString() + ","; 
+			result += obj.get("volume").toString() + "<br />"; 
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		return result; 
+		return result;
 	}
 }
