@@ -13,7 +13,7 @@ import org.json.simple.parser.ParseException;
 
 @Entity
 @Table(name = "StockQuote")
-public class StockQuoteCurrent {
+public class StockQuote {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -25,15 +25,15 @@ public class StockQuoteCurrent {
 	@Column(name = "attributes")
 	private String attributesJson;
 
-	public StockQuoteCurrent() {
+	public StockQuote() {
 	}
 
-	public StockQuoteCurrent(String symbol, String attributesJson) {
+	public StockQuote(String symbol, String attributesJson) {
 		this.setSymbol(symbol);
 		this.setAttributes(attributesJson);
 	}
 
-	public StockQuoteCurrent(String attributesJson) {
+	public StockQuote(String attributesJson) {
 		try {
 			JSONParser parser = new JSONParser();
 			JSONObject json = (JSONObject) parser.parse(attributesJson);

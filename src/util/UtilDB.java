@@ -8,7 +8,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 
-import datamodel.StockQuoteCurrent;
+import datamodel.StockQuote;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -30,7 +30,7 @@ public class UtilDB {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction(); 
-			session.save(new StockQuoteCurrent(attributesJson)); 
+			session.save(new StockQuote(attributesJson)); 
 			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null)
@@ -39,6 +39,30 @@ public class UtilDB {
 		} finally {
 			session.close(); 
 		}
+	}
+
+	public static List<StockQuote> selectSymbol(ArrayList<String> param) {
+		Session session = getSessionFactory().openSession(); 
+		Transaction tx = null; 
+		List<StockQuote> result = new ArrayList<>(); 
+		try {
+			tx = session.beginTransaction();
+			List<?> quotes = session.createQuery("FROM StockQuote").list();
+			for (Iterator<?> iterator = quotes.iterator(); iterator.hasNext();) {
+				StockQuote sqc = (StockQuote) iterator.next();
+				if (param == null || param.isEmpty() || param.contains(sqc.getSymbol()))
+					result.add(sqc);
+			}
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		
+		return result; 
 	}
 
 }

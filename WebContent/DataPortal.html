@@ -40,19 +40,32 @@ h1 {
 
 
 <section>
-	<h1>User Input</h1>
+	<h1>Request Data</h1>
 	
-	<form action="DataIEX" method="POST">
+	<form action="DataIEX_Symbols" method="POST">
 	
-		Sector: <input type="text" name="pSector"> <br/>
-		Symbols: <input type="text" name="pSymbols"> <br/>
-		Start Date: <input type="date" name="startDate"> <br/>
-		Stop Date: <input type="date" name="stopDate"> <br/>
-		
+		Sector: <br /><input type="text" name="pSector"> <br/>
+		Symbols: <br /><input type="text" name="pSymbols"> <br/>
+		Start Date: <br /><input type="date" name="startDate"> <br/>
+		Stop Date:  <br /><input type="date" name="stopDate"> <br/>
+		<br /> 
 		<input type="submit" value="Submit" />
 	</form>
 
 <a href="https://iexcloud.io">Data provided by IEX Cloud</a>
+</section>
+
+<section>
+	<h1>Export Data</h1>
+	<form action="ExportSymbols" method="POST">
+	
+		Sector: <br /><input type="text" name="pSector"> <br/>
+		Symbols: <br /><input type="text" name="pSymbols"> <br/>
+		Start Date: <br /><input type="date" name="startDate"> <br/>
+		Stop Date:  <br /><input type="date" name="stopDate"> <br/>
+		<br /> 
+		<input type="submit" value="Submit" />
+	</form>
 </section>
 
 <footer>

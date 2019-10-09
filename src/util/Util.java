@@ -1,8 +1,14 @@
 package util;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +16,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import datamodel.StockQuote;
 import secret.IEX_API;
 
 public class Util implements IEX_API {
@@ -51,17 +58,22 @@ public class Util implements IEX_API {
 	}
 	
 	public static String generateCSV(String jsonIn) {
-		// TODO: Make this. 
+		String result = ""; 
 		try {
-			JSONParser parse = new JSONParser(); 
-			JSONObject obj = (JSONObject) parse.parse(jsonIn);
-			
+		JSONParser parser = new JSONParser(); 
+		JSONObject obj = (JSONObject)parser.parse(jsonIn); 
+		Set attributes = obj.entrySet();
+		Iterator<String> itr = attributes.iterator(); 
+		while (itr.hasNext())
+		{
+			if (!result.equals(""))
+				result += ","; 
+			result += itr.next().toString();
+		}
+		
 		} catch (ParseException e) {
-			
 			e.printStackTrace();
-		} 
-		
-		
-		return null; 
+		}
+		return result; 
 	}
 }
